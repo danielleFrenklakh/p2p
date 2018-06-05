@@ -1,0 +1,24 @@
+﻿Build started 6/4/2018 2:53:05 PM.
+     1>Project "C:\Users\Danielle\Desktop\final project\team-viewer-master\server_client\server_client\server_client.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ConnectClient.cpp ConnectServer.cpp main.cpp P2P.cpp
+         P2P.cpp
+         main.cpp
+         ConnectServer.cpp
+     1>c:\users\danielle\desktop\final project\team-viewer-master\server_client\server_client\connectserver.cpp(410): warning C4172: returning address of local variable or temporary
+         ConnectClient.cpp
+     1>c:\users\danielle\desktop\final project\team-viewer-master\server_client\server_client\connectclient.cpp(292): warning C4172: returning address of local variable or temporary
+         Generating Code...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Danielle\Desktop\final project\team-viewer-master\server_client\Debug\server_client.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Danielle\Desktop\final project\team-viewer-master\server_client\Debug\server_client.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Danielle\Desktop\final project\team-viewer-master\server_client\Debug\server_client.lib" /MACHINE:X86 Debug\ConnectClient.obj
+         Debug\ConnectServer.obj
+         Debug\main.obj
+         Debug\P2P.obj
+         LINK : C:\Users\Danielle\Desktop\final project\team-viewer-master\server_client\Debug\server_client.exe not found or not built by the last incremental link; performing full link
+            Creating library C:\Users\Danielle\Desktop\final project\team-viewer-master\server_client\Debug\server_client.lib and object C:\Users\Danielle\Desktop\final project\team-viewer-master\server_client\Debug\server_client.exp
+         server_client.vcxproj -> C:\Users\Danielle\Desktop\final project\team-viewer-master\server_client\Debug\server_client.exe
+     1>Done Building Project "C:\Users\Danielle\Desktop\final project\team-viewer-master\server_client\server_client\server_client.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:10.30

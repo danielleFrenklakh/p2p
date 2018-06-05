@@ -1,0 +1,12 @@
+﻿Build started 22/05/2018 12:40:20.
+     1>Project "d:\Users\user-pc\documents\visual studio 2013\Projects\client_server\client_server\client_server.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ConnectServer.cpp
+     1>cl : Command line warning D9028: minimal rebuild failure, reverting to normal build
+         ConnectServer.cpp
+     1>d:\users\user-pc\documents\visual studio 2013\projects\client_server\client_server\connectserver.cpp : fatal error C1041: cannot open program database 'd:\users\user-pc\documents\visual studio 2013\projects\client_server\client_server\debug\vc120.idb'; if multiple CL.EXE write to the same .PDB file, please use /FS
+     1>Done Building Project "d:\Users\user-pc\documents\visual studio 2013\Projects\client_server\client_server\client_server.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:00.29
