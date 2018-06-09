@@ -16,21 +16,23 @@ using System.Threading;
 
 namespace WindowsFormsApplication1
 {
-   /* public class Win32
-    {
-        [DllImport("client_server.dll")]
-        public static extern int main(string ip);
+
+    /* public class Win32
+     {
+         [DllImport("client_server.dll")]
+         public static extern int main(string ip);
 
        
-    }*/
-    
+     }*/
+
     public partial class homePage : Form
     {
+        public string SERVER_IP = "127.0.0.1:3000";
         //[DllImport(@".\client_server.dll")]
         //public static extern int mainFunction(char[] ip);
 
-       // [DllImport(@".\connection2.dll")]
-       // public static extern int main();
+        // [DllImport(@".\connection2.dll")]
+        // public static extern int main();
 
 
         static string id;
@@ -50,6 +52,8 @@ namespace WindowsFormsApplication1
             InitializeComponent();
             myID.Text = id;
             myPsw.Text = psw;
+            label9.Text = getMyIP();
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -69,7 +73,18 @@ namespace WindowsFormsApplication1
              btPw = CreatePassword(8);
              myPsw.Text = btPw;
          }*/
-
+        public string getMyIP()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            throw new Exception("No network adapters with an IPv4 address in the system!");
+        }
         public string CreatePassword(int length)
         {
             const string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
@@ -100,17 +115,13 @@ namespace WindowsFormsApplication1
         }
         private void connectBtm_Click(object sender, EventArgs e)
         {
-            //if connection allowed
-
-
-
 
             Dictionary<string, string> data = new Dictionary<string, string>()
             {
                 {"username", PartnerID.Text },
                 { "password", PartnerPsw.Text}
             };
-            HttpHandler handler = new HttpHandler("http://localHost:3000/connect/");
+            HttpHandler handler = new HttpHandler("http://" + SERVER_IP + "/connect/");
             string received_ip = handler.Post(data).Result;
             Console.WriteLine(received_ip);
 
@@ -123,32 +134,39 @@ namespace WindowsFormsApplication1
 
             if (received_ip != "F")
             {
-                Thread cpp = new Thread(() => cpp_handler(received_ip));
-                cpp.Start();
+                 Thread cpp = new Thread(() => cpp_handler(received_ip, 1));
+                 cpp.Start();
 
-                Thread ffmpeg = new Thread(() => ffmpeg_handler(received_ip));
+                 Thread ffmpeg = new Thread(() => ffmpeg_handler(received_ip, 1));
+                 ffmpeg.Start();
 
-                ffmpeg.Start();
+                //cpp_handler(received_ip, 1);
 
-             /*   cpp_handler(received_ip);
-
-                ffmpeg_handler(received_ip);*/
+                //ffmpeg_handler(received_ip);
                 // ThreadStart cmdThread = new ThreadStart(cmd_handler);
             }
 
 
-                //this.Hide();
+            //this.Hide();
         }
 
-        private void cpp_handler(string received_ip)
+        private void cpp_handler(string received_ip, int i)
         {
+
             System.Windows.Forms.MessageBox.Show("cmd");
 
             var process = new Process();
             var startInfo = new ProcessStartInfo();
+            if (i == 1)
+            {
+                startInfo.FileName = "client_server.exe";
+                startInfo.Arguments = received_ip;
+            }
+            else
+            {
+                startInfo.FileName = "server_client.exe";
+            }
 
-            startInfo.FileName = "client_server.exe";
-            startInfo.Arguments = received_ip;
 
             startInfo.UseShellExecute = true;
 
@@ -158,7 +176,7 @@ namespace WindowsFormsApplication1
             process.WaitForExit();
         }
 
-        private void ffmpeg_handler(string received_ip)
+        private void ffmpeg_handler(string received_ip, int check)
         {
             System.Windows.Forms.MessageBox.Show("ffmpeg");
 
@@ -174,11 +192,23 @@ namespace WindowsFormsApplication1
             //System.Windows.Forms.MessageBox.Show("2");
 
             //string command = "ffplay -f mpegts udp://";//server
-            string command = "ffmpeg - f gdigrab - i desktop - f mpegts udp:";//client
-            string ip = received_ip;
-            string port = ":5643";
-            cmd.StandardInput.WriteLine(command + ip + port);//client
-                                                             //cmd.StandardInput.WriteLine(command + ip + port);
+            if(check==1)
+            {
+                string command = "ffmpeg - f gdigrab - i desktop - f mpegts udp:";//client
+                string ip = received_ip;
+                string port = ":5643";
+                cmd.StandardInput.WriteLine(command + ip + port);//client
+            }
+            else
+            {
+                string command = "ffplay -f mpegts udp://";
+                string ip =IP.Text;
+                string port = ":5643";
+                cmd.StandardInput.WriteLine(command + ip + port);//server
+
+            }
+
+            //cmd.StandardInput.WriteLine(command + ip + port);
             //System.Windows.Forms.MessageBox.Show("3");
 
             //cmd.StandardInput.WriteLine("ffmpeg -f gdigrab -i desktop -f mpegts udp:127.0.0.1:7654");
@@ -196,7 +226,7 @@ namespace WindowsFormsApplication1
         }
         private void open_command_line()
         {
-           
+
 
         }
         private void PartnerID_TextChanged(object sender, EventArgs e)
@@ -234,43 +264,50 @@ namespace WindowsFormsApplication1
 
         private void allowconnection_Click(object sender, EventArgs e)
         {
-
-            Dictionary<string, string> data = new Dictionary<string, string>()
+            if(IP.Text!="")
             {
-                {"username", myID.Text },
-            };
-            HttpHandler handler = new HttpHandler("http://localHost:3000/allowConnection/");
-            string received_ip = handler.Post(data).Result;
+                Dictionary<string, string> data = new Dictionary<string, string>()
+                {
+                    {"username", myID.Text }
+                };
+                HttpHandler handler = new HttpHandler("http://" + SERVER_IP + "/allowConnection/");
+                //string received_ip = handler.Post(data).Result;
+                // cpp_handler("blaa", 2);
+                Thread cpp = new Thread(() => cpp_handler("blaa", 2));
+                cpp.Start();
+
+                Thread ffmpeg = new Thread(() => ffmpeg_handler(IP.Text, 0));
+                ffmpeg.Start();
+                /*var process = new Process();
+                var startInfo = new ProcessStartInfo();
+
+                startInfo.FileName = "ffmpeg -f gdigrab -i desktop -f mpegts udp:127.0.0.1:7654";
+                //startInfo.Arguments = received_ip;
+
+                startInfo.UseShellExecute = true;
+
+                process.StartInfo = startInfo;
+                process.Start();
+
+                process.WaitForExit();*/
+
+                /*Process cmd = new Process();
+                cmd.StartInfo.FileName = "cmd.exe";
+                cmd.StartInfo.RedirectStandardInput = true;
+                cmd.StartInfo.RedirectStandardOutput = true;
+                cmd.StartInfo.CreateNoWindow = true;
+                cmd.StartInfo.UseShellExecute = false;
+                cmd.Start();
 
 
-            /*var process = new Process();
-            var startInfo = new ProcessStartInfo();
+                cmd.StandardInput.WriteLine("ffmpeg -f gdigrab -i desktop -f mpegts udp:127.0.0.1:7654");
 
-            startInfo.FileName = "ffmpeg -f gdigrab -i desktop -f mpegts udp:127.0.0.1:7654";
-            //startInfo.Arguments = received_ip;
+                cmd.StandardInput.Flush();
+                cmd.StandardInput.Close();
+                cmd.WaitForExit();
+                Console.WriteLine(cmd.StandardOutput.ReadToEnd());*/
+            }
 
-            startInfo.UseShellExecute = true;
-
-            process.StartInfo = startInfo;
-            process.Start();
-
-            process.WaitForExit();*/
-
-            /*Process cmd = new Process();
-            cmd.StartInfo.FileName = "cmd.exe";
-            cmd.StartInfo.RedirectStandardInput = true;
-            cmd.StartInfo.RedirectStandardOutput = true;
-            cmd.StartInfo.CreateNoWindow = true;
-            cmd.StartInfo.UseShellExecute = false;
-            cmd.Start();
-            
-            
-            cmd.StandardInput.WriteLine("ffmpeg -f gdigrab -i desktop -f mpegts udp:127.0.0.1:7654");
-            
-            cmd.StandardInput.Flush();
-            cmd.StandardInput.Close();
-            cmd.WaitForExit();
-            Console.WriteLine(cmd.StandardOutput.ReadToEnd());*/
         }
 
         private void logout_Click(object sender, EventArgs e)
@@ -279,10 +316,15 @@ namespace WindowsFormsApplication1
             {
                 {"username", myID.Text },
             };
-            HttpHandler handler = new HttpHandler("http://localHost:3000/logout/");
+            HttpHandler handler = new HttpHandler("http://" + SERVER_IP + "/logout/");
             string receive = handler.Post(data).Result;
             Console.Write(receive);
-            
+
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

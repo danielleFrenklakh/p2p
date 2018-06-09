@@ -41,6 +41,10 @@
             this.myPsw = new System.Windows.Forms.Label();
             this.allowconnection = new System.Windows.Forms.Button();
             this.logout = new System.Windows.Forms.Button();
+            this.IP = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -161,11 +165,50 @@
             this.logout.UseVisualStyleBackColor = true;
             this.logout.Click += new System.EventHandler(this.logout_Click);
             // 
+            // IP
+            // 
+            this.IP.Location = new System.Drawing.Point(120, 268);
+            this.IP.Name = "IP";
+            this.IP.Size = new System.Drawing.Size(100, 20);
+            this.IP.TabIndex = 19;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(12, 252);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(208, 13);
+            this.label7.TabIndex = 20;
+            this.label7.Text = "Enter user\'s ip address to allow connection";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(21, 345);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(38, 13);
+            this.label8.TabIndex = 22;
+            this.label8.Text = "your ip";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(81, 345);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(35, 13);
+            this.label9.TabIndex = 24;
+            this.label9.Text = "label9";
+            this.label9.Click += new System.EventHandler(this.label9_Click);
+            // 
             // homePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(457, 379);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.IP);
             this.Controls.Add(this.logout);
             this.Controls.Add(this.allowconnection);
             this.Controls.Add(this.myPsw);
@@ -202,6 +245,10 @@
         private System.Windows.Forms.Label myPsw;
         private System.Windows.Forms.Button allowconnection;
         private System.Windows.Forms.Button logout;
+        private System.Windows.Forms.TextBox IP;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
     }
 }
 

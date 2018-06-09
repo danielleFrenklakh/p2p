@@ -13,12 +13,12 @@
 
 using namespace std;
 
-int main(char argc, char** argv)
+int main(char argc, char** argv)//The system is getting the ip address from the user interface as starter variables in argv
 {
 	char* ip = argv[1];
 	//ip = "192.168.100.63";
 	cout << ip;
-	cout << "dubi idiot";
+	
 	//MessageBox(NULL, L"would you really like to connect?", L"Confirmation", NULL);
 	SOCKET *s = new SOCKET();
 	ConnectClient *cc = new ConnectClient(ip);

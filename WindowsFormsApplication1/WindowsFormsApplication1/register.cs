@@ -17,6 +17,8 @@ namespace WindowsFormsApplication1
 {
     public partial class register : Form
     {
+        public string SERVER_IP = "127.0.0.1:3000";
+
         public register()
         {
             InitializeComponent();
@@ -52,7 +54,7 @@ namespace WindowsFormsApplication1
             if (ID.Text != "" && Password.Text != "" && (Password.Text == confirmpsw.Text))
             {
 
-                HttpHandler handler = new HttpHandler("http://localHost:3000/register/");
+                HttpHandler handler = new HttpHandler("http://"+ SERVER_IP +"/ register/");
                 confirm = handler.Post(data).Result;
                 Console.WriteLine(confirm);
 
