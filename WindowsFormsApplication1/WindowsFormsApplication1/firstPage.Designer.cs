@@ -34,9 +34,9 @@
             // 
             // register
             // 
-            this.register.Location = new System.Drawing.Point(1, 74);
+            this.register.Location = new System.Drawing.Point(12, 74);
             this.register.Name = "register";
-            this.register.Size = new System.Drawing.Size(105, 26);
+            this.register.Size = new System.Drawing.Size(110, 25);
             this.register.TabIndex = 0;
             this.register.Text = "register";
             this.register.UseVisualStyleBackColor = true;
@@ -44,7 +44,7 @@
             // 
             // login
             // 
-            this.login.Location = new System.Drawing.Point(145, 74);
+            this.login.Location = new System.Drawing.Point(158, 74);
             this.login.Name = "login";
             this.login.Size = new System.Drawing.Size(110, 25);
             this.login.TabIndex = 1;
@@ -56,7 +56,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(280, 269);
             this.Controls.Add(this.login);
             this.Controls.Add(this.register);
             this.Name = "firstPage";

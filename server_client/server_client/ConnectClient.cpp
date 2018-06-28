@@ -4,6 +4,7 @@
 using namespace std;
 ConnectClient::ConnectClient(char* ip)//sets in the constructor the ip address given
 {
+	_server = INVALID_SOCKET;//initializes the socket
 	_ipAddress = ip;
 }
 int connectServerActivate(){

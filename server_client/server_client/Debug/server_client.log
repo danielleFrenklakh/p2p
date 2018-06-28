@@ -1,11 +1,8 @@
-﻿Build started 6/8/2018 7:04:32 PM.
+﻿Build started 6/23/2018 4:52:42 PM.
      1>Project "C:\Users\Danielle\Desktop\final project\final\server_client\server_client\server_client.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ConnectClient.cpp ConnectServer.cpp P2P.cpp main.cpp
-         P2P.cpp
-     1>c:\users\danielle\desktop\final project\final\server_client\server_client\p2p.cpp(26): warning C4172: returning address of local variable or temporary
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ConnectServer.cpp main.cpp
          ConnectServer.cpp
-         ConnectClient.cpp
          Generating Code...
          Skipping... (no relevant changes detected)
          main.cpp
@@ -19,4 +16,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:05.25
+Time Elapsed 00:00:02.42

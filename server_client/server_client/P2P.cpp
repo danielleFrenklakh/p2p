@@ -1,7 +1,5 @@
 #include "P2P.h"
 P2P::P2P(){
-	_ListenSocket = INVALID_SOCKET;//initializes the socket
-	_server = INVALID_SOCKET;//initializes the socket
 	_ipAddress = "";//initializes the ip address
 }
 

@@ -1,14 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Net.NetworkInformation;
-using System.Threading;
 
 //using System.Web.Routing;
 using Dns = System.Net.Dns;
@@ -17,7 +9,7 @@ namespace WindowsFormsApplication1
 {
     public partial class register : Form
     {
-        public string SERVER_IP = "127.0.0.1:3000";
+        public string SERVER_IP = "localHost:3000";
 
         public register()
         {
@@ -54,7 +46,7 @@ namespace WindowsFormsApplication1
             if (ID.Text != "" && Password.Text != "" && (Password.Text == confirmpsw.Text))
             {
 
-                HttpHandler handler = new HttpHandler("http://"+ SERVER_IP +"/ register/");
+                HttpHandler handler = new HttpHandler("http://"+ SERVER_IP +"/register/");
                 confirm = handler.Post(data).Result;
                 Console.WriteLine(confirm);
 

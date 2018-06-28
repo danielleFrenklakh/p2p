@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WindowsFormsApplication1
@@ -19,6 +12,7 @@ namespace WindowsFormsApplication1
 
         private void register_Click(object sender, EventArgs e)
         {
+            //open registration form
             register registerForm = new register();
             registerForm.Show();
             this.Hide();
@@ -26,7 +20,8 @@ namespace WindowsFormsApplication1
 
         private void login_Click(object sender, EventArgs e)
         {
-            login log_in = new login();
+            //open login form
+            login log_in = new login();//
             log_in.Show();
             this.Hide();
         }

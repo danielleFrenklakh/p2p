@@ -26,8 +26,6 @@ public:
 	virtual int connectTo() = 0;//defines a virtual function that later will be actualized in the sons
 	int* getScreenCoordinates();//gets the coordinates of the computer
 protected:
-	SOCKET _ListenSocket;//the 'servers' socket that listens to connections on the specific port
-	SOCKET _server;//the 'clients' socket that connects to the server in the same port
 	char* _ipAddress;//the ip of the 'server' side that the program is willing to connect (getting from the user interface
 };
 

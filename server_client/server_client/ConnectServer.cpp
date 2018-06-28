@@ -3,6 +3,8 @@ using namespace std;
 #define IP "127.0.0.1"
 
 ConnectServer::ConnectServer(){
+	_ListenSocket = INVALID_SOCKET;//initializes the socket
+	AcceptSocket = INVALID_SOCKET;
 }
 int connectClientActivate(){
 	return 0;
@@ -56,7 +58,6 @@ int ConnectServer::connectTo()
 	}
 
 	// Create a SOCKET for accepting incoming requests.
-	SOCKET AcceptSocket;
 	sockaddr_in client;
 
 
@@ -94,7 +95,7 @@ int ConnectServer::connectTo()
 	iResult = recv(AcceptSocket, mouseCoord, 8, 0);//receiving the clients coordinates
 	if (iResult == SOCKET_ERROR) {
 		printf("recv function failed with error: %d\n", WSAGetLastError());
-		closesocket(_server);
+		closesocket(AcceptSocket);
 		WSACleanup();
 		return 1;
 	}
@@ -132,7 +133,7 @@ int ConnectServer::connectTo()
 		iResult = recv(AcceptSocket, check, 2, 0);//check if the event is keyboard ot mouse
 		if (iResult == SOCKET_ERROR) {
 			printf("recv function failed with error: %d\n", WSAGetLastError());
-			closesocket(_server);
+			closesocket(AcceptSocket);
 			WSACleanup();
 			return 1;
 		}
@@ -141,7 +142,7 @@ int ConnectServer::connectTo()
 			iResult = recv(AcceptSocket, keyBoard, 2, 0);//recieve the key pressed in the kyeboard
 			if (iResult == SOCKET_ERROR) {
 				printf("recv function failed with error: %d\n", WSAGetLastError());
-				closesocket(_server);
+				closesocket(AcceptSocket);
 				WSACleanup();
 				return 1;
 			}
@@ -222,21 +223,21 @@ int ConnectServer::connectTo()
 			iResult = recv(AcceptSocket, bufferX, 2, 0);//Receive the x coordinates
 			if (iResult == SOCKET_ERROR) {
 				printf("recv function failed with error: %d\n", WSAGetLastError());
-				closesocket(_server);
+				closesocket(AcceptSocket);
 				WSACleanup();
 				return 1;
 			}
 			iResult = recv(AcceptSocket, bufferY, 2, 0);//Receive the y coordinates
 			if (iResult == SOCKET_ERROR) {
 				printf("recv function failed with error: %d\n", WSAGetLastError());
-				closesocket(_server);
+				closesocket(AcceptSocket);
 				WSACleanup();
 				return 1;
 			}
 			iResult = recv(AcceptSocket, bufferPress, 2, 0);//Receive the press event
 			if (iResult == SOCKET_ERROR) {
 				printf("recv function failed with error: %d\n", WSAGetLastError());
-				closesocket(_server);
+				closesocket(AcceptSocket);
 				WSACleanup();
 				return 1;
 			}
@@ -249,12 +250,12 @@ int ConnectServer::connectTo()
 			if (bufferPress[0] == 001)//if got a click from the computer controlling
 			{
 				cout << "left click";
-				LeftClick();
+				Click(1);
 			}
 			if (bufferPress[0] == 002)//if got a click from the computer controlling
 			{
 				cout << "right click";
-				RightClick();
+				Click(2);
 
 
 			}
@@ -279,35 +280,36 @@ int ConnectServer::connectTo()
 	return 0;
 }
 
-//the function enables the left click event on the mouse
-void ConnectServer::LeftClick()
+//the function enables the click events on the mouse
+void ConnectServer::Click(int num)
 {
+	
 	INPUT    Input = { 0 };													// Create our input.
+	if (num == 1)
+	{
+		Input.type = INPUT_MOUSE;									// Let input know we are using the mouse.
+		Input.mi.dwFlags = MOUSEEVENTF_LEFTDOWN;							// We are setting left mouse button down.
+		SendInput(1, &Input, sizeof(INPUT));								// Send the input.
 
-	Input.type = INPUT_MOUSE;									// Let input know we are using the mouse.
-	Input.mi.dwFlags = MOUSEEVENTF_LEFTDOWN;							// We are setting left mouse button down.
-	SendInput(1, &Input, sizeof(INPUT));								// Send the input.
+		ZeroMemory(&Input, sizeof(INPUT));									// Fills a block of memory with zeros.
+		Input.type = INPUT_MOUSE;									// Let input know we are using the mouse.
+		Input.mi.dwFlags = MOUSEEVENTF_LEFTUP;								// We are setting left mouse button up.
+		SendInput(1, &Input, sizeof(INPUT));								// Send the input.
+	}
+	else{
+		Input.type = INPUT_MOUSE;									// Let input know we are using the mouse.
+		Input.mi.dwFlags = MOUSEEVENTF_RIGHTDOWN;							// We are setting left mouse button down.
+		SendInput(1, &Input, sizeof(INPUT));								// Send the input.
 
-	ZeroMemory(&Input, sizeof(INPUT));									// Fills a block of memory with zeros.
-	Input.type = INPUT_MOUSE;									// Let input know we are using the mouse.
-	Input.mi.dwFlags = MOUSEEVENTF_LEFTUP;								// We are setting left mouse button up.
-	SendInput(1, &Input, sizeof(INPUT));								// Send the input.
+		ZeroMemory(&Input, sizeof(INPUT));									// Fills a block of memory with zeros.
+		Input.type = INPUT_MOUSE;									// Let input know we are using the mouse.
+		Input.mi.dwFlags = MOUSEEVENTF_RIGHTUP;								// We are setting left mouse button up.
+		SendInput(1, &Input, sizeof(INPUT));								// Send the input.
+	}
+	
 }
-//the function enables the right click event on the mouse
 
-void ConnectServer::RightClick()
-{
-	INPUT    Input = { 0 };													// Create our input.
 
-	Input.type = INPUT_MOUSE;									// Let input know we are using the mouse.
-	Input.mi.dwFlags = MOUSEEVENTF_RIGHTDOWN;							// We are setting left mouse button down.
-	SendInput(1, &Input, sizeof(INPUT));								// Send the input.
-
-	ZeroMemory(&Input, sizeof(INPUT));									// Fills a block of memory with zeros.
-	Input.type = INPUT_MOUSE;									// Let input know we are using the mouse.
-	Input.mi.dwFlags = MOUSEEVENTF_RIGHTUP;								// We are setting left mouse button up.
-	SendInput(1, &Input, sizeof(INPUT));								// Send the input.
-}
 /*
 int* ConnectServer::getScreenCoordinates()
 {

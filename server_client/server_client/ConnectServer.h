@@ -9,9 +9,11 @@ class ConnectServer :P2P{
 public:
 	ConnectServer();//constructor
 	int connectTo();//overrides the virtual function of the father
-	void LeftClick();//handles left click events
-	void RightClick();//handles right click events
+	void Click(int);//handles click events
 	//int* getScreenCoordinates();////the function gets the computer's resolution
+private:
+	SOCKET _ListenSocket;//the 'servers' socket that listens to connections on the specific port
+	SOCKET AcceptSocket; //the socket after the connection was set
 
 
 

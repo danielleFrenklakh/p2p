@@ -44,7 +44,7 @@
             this.IP = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
+            this.my_ip_address = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -116,6 +116,7 @@
             this.PartnerPsw.Name = "PartnerPsw";
             this.PartnerPsw.Size = new System.Drawing.Size(100, 20);
             this.PartnerPsw.TabIndex = 9;
+            this.PartnerPsw.TextChanged += new System.EventHandler(this.PartnerPsw_TextChanged);
             // 
             // connectBtm
             // 
@@ -190,22 +191,22 @@
             this.label8.TabIndex = 22;
             this.label8.Text = "your ip";
             // 
-            // label9
+            // my_ip_address
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(81, 345);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(35, 13);
-            this.label9.TabIndex = 24;
-            this.label9.Text = "label9";
-            this.label9.Click += new System.EventHandler(this.label9_Click);
+            this.my_ip_address.AutoSize = true;
+            this.my_ip_address.Location = new System.Drawing.Point(81, 345);
+            this.my_ip_address.Name = "my_ip_address";
+            this.my_ip_address.Size = new System.Drawing.Size(15, 13);
+            this.my_ip_address.TabIndex = 24;
+            this.my_ip_address.Text = "ip";
+            this.my_ip_address.Click += new System.EventHandler(this.label9_Click);
             // 
             // homePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(457, 379);
-            this.Controls.Add(this.label9);
+            this.Controls.Add(this.my_ip_address);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.IP);
@@ -248,7 +249,7 @@
         private System.Windows.Forms.TextBox IP;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label my_ip_address;
     }
 }
 

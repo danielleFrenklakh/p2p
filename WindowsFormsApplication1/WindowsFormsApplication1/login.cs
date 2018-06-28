@@ -48,7 +48,7 @@ namespace WindowsFormsApplication1
             };
             if(userNameBox.Text!="" && passwordBox.Text!="")
             {
-                HttpHandler handler = new HttpHandler("http://"+ SERVER_IP +"/ login/");
+                HttpHandler handler = new HttpHandler("http://"+ SERVER_IP +"/login/");
                 string confirm = handler.Post(data).Result;
                 //Console.WriteLine(taskResult);
                 //if the username exist and the password match:

@@ -10,6 +10,8 @@ public:
 	int connectTo();//overrides the virtual function of the father
 	int sendingEventData();//handelng and sending via socket the events
 	//int* getScreenCoordinates();
+private:
+	SOCKET _server;//the 'clients' socket that connects to the server in the same port
 
 };
 //unsigned char* readBMP(char* filename);
