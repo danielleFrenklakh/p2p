@@ -93,8 +93,17 @@ function check_credentials_login(req, res, user_data){
         }
 		else {
 			console.log("the username exists, u are allowed to login");
-			res.send("T");//sends back to the user’s interface and allow the connection
-        }
+			let data = [user_data[2], user_data[0]];
+			let sql = `UPDATE users SET ip_address = ? WHERE username = ?`;
+
+			db.run(sql, data, function(err) {////runs the command on the db
+				if (!err) {
+					res.send("cool")
+				}else{
+					res.send("T");//sends back to the user’s interface and allow the connection
+				}
+			})
+		}
     });
 }
 
@@ -120,7 +129,7 @@ function check_connection_allow(req, res, user_data){/*checks if the user that w
 is active and exists in order to connect to him*/
 	db.get("SELECT * FROM users WHERE username = ? AND password = ? AND is_active = ?", [user_data[0], user_data[1],true],function (err, rows){
   /*sends the command to the db to check if such user
-   exists and the password matches the username*/
+   exists and the password matches the username and the user is active*/
         if (!rows ){
 			       console.log("No such user");
 			       res.send("F");//sends to the user interface that the connection is failed

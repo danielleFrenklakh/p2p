@@ -12,7 +12,7 @@ namespace WindowsFormsApplication1
     public partial class homePage : Form
     {
         public string SERVER_IP = "localHost:3000";
-      
+
         static string id;//the username entered
         static string psw;//the password entered
 
@@ -58,7 +58,7 @@ namespace WindowsFormsApplication1
             }
             throw new Exception("No network adapters with an IPv4 address in the system!");
         }
-       
+
 
         private void MyPassword_Click(object sender, EventArgs e)
         {
@@ -80,11 +80,11 @@ namespace WindowsFormsApplication1
             string received_ip = handler.Post(data).Result;//sending and receiving a response from the POST request
             if (received_ip != "F")//if the connction was confirmed
             {
-                 Thread cpp = new Thread(() => cpp_handler(received_ip, 1));//open the mouse and keyboard handeling project with the first thread
-                 cpp.Start();//start thread
+                Thread cpp = new Thread(() => cpp_handler(received_ip, 1));//open the mouse and keyboard handeling project with the first thread
+                cpp.Start();//start thread
 
-                 Thread ffmpeg = new Thread(() => ffmpeg_handler(received_ip, 1));//open the screen sharing in the second thread in order fpr them to run in the same time
-                 ffmpeg.Start();//start thread
+                Thread ffmpeg = new Thread(() => ffmpeg_handler(received_ip, 1));//open the screen sharing in the second thread in order fpr them to run in the same time
+                ffmpeg.Start();//start thread
 
 
             }
@@ -117,33 +117,35 @@ namespace WindowsFormsApplication1
         {
 
             Process cmd = new Process();//open a new process
-            cmd.StartInfo.FileName = "cmd.exe";//set open cmd
-            cmd.StartInfo.RedirectStandardInput = true;
-            cmd.StartInfo.RedirectStandardOutput = true;
-            cmd.StartInfo.CreateNoWindow = true;
-            cmd.StartInfo.UseShellExecute = false;//set the cmd be hidden
-            cmd.Start();
-            if(check==1)
+            cmd.StartInfo.FileName = "C:\\Users\\Danielle\\Desktop\\ffmpeg\\ffmpeg-20180319-e5b4cd4-win64-static\\bin\\";//set open cmd
+            cmd.StartInfo.CreateNoWindow = false;
+            cmd.StartInfo.UseShellExecute = true;//set the cmd be hidden
+            if (check == 1)
             {
-                string command = "ffmpeg - f gdigrab - i desktop - f mpegts udp:";//client
+                cmd.StartInfo.FileName += "ffplay.exe";
+                string command = "-f mpegts udp://";//server
                 string ip = received_ip;
-                string port = ":7654";
-                cmd.StandardInput.WriteLine(command + ip + port);//write the command to cmd
+                string port = ":4000";
+
+                cmd.StartInfo.Arguments = command + ip + port;
             }
             else
             {
-                string command = "ffplay -f mpegts udp://";//server
-                string ip =IP.Text;
-                string port = ":7654";
-                cmd.StandardInput.WriteLine(command + ip + port);//write the command to cmd
+                cmd.StartInfo.FileName += "ffmpeg.exe";
+
+                string command = "-f gdigrab -i desktop -f mpegts udp:";//client
+                string ip = IP.Text;
+                string port = ":4000";
+
+                cmd.StartInfo.Arguments = command + ip + port;
 
             }
+            cmd.Start();
 
 
-            cmd.StandardInput.Flush();
-            cmd.StandardInput.Close();
+
+           
             cmd.WaitForExit();
-            Console.WriteLine(cmd.StandardOutput.ReadToEnd());
 
         }
         private void open_command_line()
@@ -158,7 +160,7 @@ namespace WindowsFormsApplication1
 
         private void allowconnection_Click(object sender, EventArgs e)//allowing other computer to connect yours
         {
-            if(IP.Text!="")
+            if (IP.Text != "")
             {
                 Dictionary<string, string> data = new Dictionary<string, string>()
                 {

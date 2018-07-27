@@ -33,7 +33,7 @@ int ConnectClient::connectTo()
 		return 1;
 	}
 	else{
-		std::cout << "Connected to _server!" << std::endl;
+		//std::cout << "Connected to _server!" << std::endl;
 	}
 	int horizontal = 0;
 	int vertical = 0;
@@ -55,30 +55,30 @@ int ConnectClient::connectTo()
 	vertical = desktop.bottom;*/
 
 
-	cout << "horizontal" << (int)horizontal;
-	cout << "vetical" << (int)vertical;
+	//cout << "horizontal" << (int)horizontal;
+	//cout << "vetical" << (int)vertical;
 
 
 	//char horizontalChar[8]= {};
 	//char VerticalChar[4] = {};
 	char mouseCoord_to_send[8];
 	mouseCoord_to_send[0] = horizontal & 0xff;
-	cout << "mouseCoord_to_send[0] " << (int)mouseCoord_to_send[0] << "\n";
+	//cout << "mouseCoord_to_send[0] " << (int)mouseCoord_to_send[0] << "\n";
 	mouseCoord_to_send[1] = (horizontal >> 8) & 0xff;
-	cout << "mouseCoord_to_send[1] " << (int)mouseCoord_to_send[1] << "\n";
+	//cout << "mouseCoord_to_send[1] " << (int)mouseCoord_to_send[1] << "\n";
 	mouseCoord_to_send[2] = (horizontal >> 16) & 0xff;
-	cout << "mouseCoord_to_send[2] " << (int)mouseCoord_to_send[2] << "\n";
+	//cout << "mouseCoord_to_send[2] " << (int)mouseCoord_to_send[2] << "\n";
 	mouseCoord_to_send[3] = (horizontal >> 24) & 0xff;
-	cout << "mouseCoord_to_send[3] " << (int)mouseCoord_to_send[3] << "\n";
+	//cout << "mouseCoord_to_send[3] " << (int)mouseCoord_to_send[3] << "\n";
 
 	mouseCoord_to_send[4] = vertical & 0xff;
-	cout << "mouseCoord_to_send[4] " << (int)mouseCoord_to_send[4] << "\n";
+	//cout << "mouseCoord_to_send[4] " << (int)mouseCoord_to_send[4] << "\n";
 	mouseCoord_to_send[5] = (vertical >> 8) & 0xff;
-	cout << "\nmouseCoord_to_send[5] " << (int)(mouseCoord_to_send[5]) << "\n";
+	//cout << "\nmouseCoord_to_send[5] " << (int)(mouseCoord_to_send[5]) << "\n";
 	mouseCoord_to_send[6] = (vertical >> 16) & 0xff;
-	cout << "mouseCoord_to_send[6] " << (int)mouseCoord_to_send[6] << "\n";
+	//cout << "mouseCoord_to_send[6] " << (int)mouseCoord_to_send[6] << "\n";
 	mouseCoord_to_send[7] = (vertical >> 24) & 0xff;
-	cout << "mouseCoord_to_send[7] " << (int)mouseCoord_to_send[7] << "\n";
+	//cout << "mouseCoord_to_send[7] " << (int)mouseCoord_to_send[7] << "\n";
 	printf("string:: \n%s", mouseCoord_to_send);
 	//mouseCoord_to_send = { 1, 2, 3, 4, 5, 6, '7' }
 
@@ -125,7 +125,7 @@ int ConnectClient::connectTo()
 
 	sendingEventData();
 	//coordinations(_server);
-	printf("danielle mefageret");
+	
 	iResult = closesocket(_server);
 	if (iResult == SOCKET_ERROR) {
 		wprintf(L"closesocket function failed with error %d\n", WSAGetLastError());
@@ -134,11 +134,11 @@ int ConnectClient::connectTo()
 	}
 	else
 	{
-		std::cout << "Client disconnected" << std::endl;
+		//std::cout << "Client disconnected" << std::endl;
 	}
 
 	//WSACleanup();
-	std::cout << "Socket closed." << std::endl << std::endl;
+	//std::cout << "Socket closed." << std::endl << std::endl;
 	system("PAUSE");
 
 	return 0;
@@ -189,18 +189,18 @@ int ConnectClient::sendingEventData()
 					xy.X = 0; xy.Y = 0;
 					SetConsoleCursorPosition(hStdOutput, xy);
 
-					printf
+					/*printf
 						(
 						"AsciiCode = %d: symbol = %c\n",
 						ir[i].Event.KeyEvent.uChar.AsciiChar,
 						ir[i].Event.KeyEvent.uChar.AsciiChar
-						);
+						);*/
 
 					bf[0] = ir[i].Event.KeyEvent.uChar.AsciiChar;
-					cout << "\nbf " << bf;
+					//cout << "\nbf " << bf;
 
-					cout << strlen(bf);
-					printf("sending\n");
+					//cout << strlen(bf);
+					//printf("sending\n");
 					iResult = send(_server, bf, 2, 0);
 					if (iResult == SOCKET_ERROR) {
 						cout << "send failed: " << WSAGetLastError();
@@ -221,13 +221,13 @@ int ConnectClient::sendingEventData()
 				}
 				xy.X = 0, xy.Y = 1;
 				SetConsoleCursorPosition(hStdOutput, xy);
-				printf
+				/*printf
 					(
 					"%.3d\t%.3d\t%.3d",
 					ir[i].Event.MouseEvent.dwMousePosition.X,
 					ir[i].Event.MouseEvent.dwMousePosition.Y,
 					(int)ir[i].Event.MouseEvent.dwButtonState & 0x07   //mask out scroll wheel, which screws up
-					);
+					);*/
 				char bufferX[2] = { '1', '\0' };
 				char bufferY[2] = { '1', '\0' };
 				char bufferPress[2] = { '1', '\0' };

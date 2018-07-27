@@ -64,7 +64,7 @@ int ConnectServer::connectTo()
 	sockaddr_in client;
 
 
-	wprintf(L"Waiting for client to connect...\n");
+	//wprintf(L"Waiting for client to connect...\n");
 
 	//----------------------
 	// Accept the connection.
@@ -81,7 +81,7 @@ int ConnectServer::connectTo()
 	else
 	{
 
-		wprintf(L"Client connected.\n");
+		//wprintf(L"Client connected.\n");
 
 	}
 
@@ -170,15 +170,15 @@ int ConnectServer::connectTo()
 		cout << " mouseCoord[6] " << (int)mouseCoord[6] << "\n";
 		cout << " mouseCoord[7] " << (int)mouseCoord[7] << "\n";
 		*/
-		printf("string:: %s", mouseCoord);
+		//printf("string:: %s", mouseCoord);
 
 	//	client_horizontal = (int)mouseCoord[0] + (int)(mouseCoord[1] << 8) + (int)(mouseCoord[2] << 16) + (int)(mouseCoord[3] << 24);
 		client_horizontal = mouseCoord[0] + (mouseCoord[1] >> 8);
 
 		client_vertical = mouseCoord[4] + (mouseCoord[5] << 8) + (mouseCoord[6] << 16) + (mouseCoord[7] << 24);
 
-		cout << "\n client horizontal\n" << client_horizontal << "\n client vertical\n" << client_vertical;
-		cout << "\n serevr horizontal\n" << horizontal << "\n server vertical\n" << vertical;
+		//cout << "\n client horizontal\n" << client_horizontal << "\n client vertical\n" << client_vertical;
+		//cout << "\n serevr horizontal\n" << horizontal << "\n server vertical\n" << vertical;
 
 	}
 	char keyBoard[2];
@@ -218,8 +218,8 @@ int ConnectServer::connectTo()
 
 				stream << (int)keyBoard[0];
 				stream >> hex >> key_code;
-				printf("key hex code is: %x \n", key_code);
-				printf("key dec code is: %d \n", key_code);
+				//printf("key hex code is: %x \n", key_code);
+				//printf("key dec code is: %d \n", key_code);
 				
 				// Set up a generic keyboard event.
 				ip.type = INPUT_KEYBOARD;
@@ -241,7 +241,7 @@ int ConnectServer::connectTo()
 					// This structure will be used to create the keyboard
 					// input event.
 					ip.ki.dwFlags = 0;
-					cout << "keyBoard[0] " << keyBoard[0];
+					//cout << "keyBoard[0] " << keyBoard[0];
 					if ((keyBoard[0] >= '0' && keyBoard[0] <= '9') || (keyBoard[0] >= 'A' && keyBoard[0] <= 'Z') || (keyBoard[0] >= 'a' && keyBoard[0] <= 'z'))//if letters or numbers
 					{
 						input[0].type = INPUT_KEYBOARD;
@@ -262,7 +262,7 @@ int ConnectServer::connectTo()
 					else//if other chars
 					{
 						// input event.
-						cout << "different char";
+						//cout << "different char";
 						SendInput(1, &ip, sizeof(INPUT));
 					}
 					
@@ -322,20 +322,20 @@ int ConnectServer::connectTo()
 				WSACleanup();
 				return 1;
 			}
-			printf
-				("%.3d\t%.3d\t%.3d",bufferX[0],bufferY[0],(int)bufferPress[0]);
+			/*printf
+				("%.3d\t%.3d\t%.3d",bufferX[0],bufferY[0],(int)bufferPress[0]);*/
 
 			
 			SetCursorPos(bufferX[0] * (horizontal/((int)mouseCoord[0])), bufferY[0] * (vertical / ((int)mouseCoord[1])));
 
 			if (bufferPress[0] == 001)//if got a click from the computer controlling
 			{
-				cout << "left click";
+				//cout << "left click";
 				LeftClick();
 			}
 			if (bufferPress[0] == 002)//if got a click from the computer controlling
 			{ 
-				cout << "right click";
+				//cout << "right click";
 				RightClick();
 
 
@@ -355,7 +355,7 @@ int ConnectServer::connectTo()
 	}
 	else
 	{
-		std::cout << "\nClient disconnected" << std::endl;
+		//std::cout << "\nClient disconnected" << std::endl;
 	}
 	WSACleanup();
 	return 0;

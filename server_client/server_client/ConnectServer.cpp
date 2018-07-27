@@ -28,7 +28,7 @@ int ConnectServer::connectTo()
 	}
 	_ListenSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);	// Create a SOCKET for listening for incoming connection requests.
 	if (_ListenSocket == INVALID_SOCKET) {
-		wprintf(L"socket function failed with error: %ld\n", WSAGetLastError());
+		//wprintf(L"socket function failed with error: %ld\n", WSAGetLastError());
 		WSACleanup();
 		return 1;
 	}
@@ -61,7 +61,7 @@ int ConnectServer::connectTo()
 	sockaddr_in client;
 
 
-	wprintf(L"Waiting for client to connect...\n");
+	//wprintf(L"Waiting for client to connect...\n");
 
 	//----------------------
 	// Accept the connection.
@@ -77,7 +77,7 @@ int ConnectServer::connectTo()
 	}
 	else
 	{
-		wprintf(L"Client connected.\n");
+		//wprintf(L"Client connected.\n");
 	}
 	//define and get the coordinates of the screen
 	int horizontal = 0;
